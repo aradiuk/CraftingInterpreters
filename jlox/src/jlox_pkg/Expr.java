@@ -64,7 +64,6 @@ abstract class Expr {
         final Token operator;
         final Expr right;
     }
-
     static class Conditional extends Expr {
         Conditional(Expr condition, Expr thenBranch, Expr elseBranch) {
             this.condition = condition;

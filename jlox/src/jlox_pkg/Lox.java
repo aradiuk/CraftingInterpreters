@@ -56,13 +56,13 @@ public class Lox {
         jlox_pkg.Scanner scanner = new jlox_pkg.Scanner(source);
         List<Token> tokens = scanner.scanTokens();
         Parser parser = new Parser(tokens);
-        Expr expression = parser.parse();
+        List<Stmt> statements = parser.parse();
 
         if (hadError) {
             return;
         }
 
-        interpreter.interpret(expression);
+        interpreter.interpret(statements);
     }
 
     private static void report(int line, String where, String message) {
