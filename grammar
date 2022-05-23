@@ -1,4 +1,12 @@
-expression     → comma ;
+program        → statenent* EOF ;
+
+statement      → exprStmt | printStmt ;
+
+exprStmt       → expression ";" ;
+printStmt      → "print" expression ";" ;
+
+
+expression     → comma;
 comma          → conditional ( "," conditional )*;
 conditional    → equality ("?" equality ":" equality)?; 
 equality       → comparison ( ( "!=" | "==" ) comparison )* ;
