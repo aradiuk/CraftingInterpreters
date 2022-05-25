@@ -40,6 +40,7 @@ public class Lox {
     public static void runPrompt() throws IOException {
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
+        interpreter.isREPL = true;
 
         while (true) {
             System.out.print("> ");

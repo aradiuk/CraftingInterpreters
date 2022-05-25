@@ -3,6 +3,7 @@ package jlox_pkg;
 import java.util.List;
 
 class Interpreter implements Expr.Visitor<Object>,Stmt.Visitor<Void> {
+    boolean isREPL = false;
     private Environment environment = new Environment();
     void interpret(List<Stmt> statements) {
         try {
@@ -131,7 +132,10 @@ class Interpreter implements Expr.Visitor<Object>,Stmt.Visitor<Void> {
 
     @Override
     public Void visitExpressionStmt(Stmt.Expression stmt) {
-        evaluate(stmt.expression);
+        Object result = evaluate(stmt.expression);
+        if (isREPL) {
+            System.out.println(result);
+        }
         return null;
     }
 
@@ -161,7 +165,11 @@ class Interpreter implements Expr.Visitor<Object>,Stmt.Visitor<Void> {
 
     @Override
     public Object visitVariableExpr(Expr.Variable expr) {
-        return environment.get(expr.name);
+        Object result = environment.get(expr.name);
+        if (result == null) {
+            throw new RuntimeError(expr.name,"Trying to access an uninitialized variable '" + expr.name.lexeme + "'.");
+        }
+        return result;
     }
 
     @Override
