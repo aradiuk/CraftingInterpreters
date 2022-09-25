@@ -2,7 +2,7 @@
 
 #include "memory.h"
 
-void* reallocate(void* pointer, size_t oldSize, site_t newSize) {
+void* reallocate(void* pointer, size_t oldSize, size_t newSize) {
 	if (!newSize) {
 		free(pointer);
 		return NULL;
