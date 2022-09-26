@@ -27,7 +27,14 @@ void disassembleChunk(Chunk* chunk, const char* name) {
 int disassembleInstruction(Chunk* chunk, int offset) {
     printf("%04d ", offset);
 
-    printf("%4d ", getLine(&chunk->lines, offset));
+    int currentLine = getLine(&chunk->lines, offset);
+    int previousLine = getLine(&chunk->lines, offset - 1);
+
+    if (offset > 0 && currentLine == previousLine) {
+        printf("   | ");
+    } else {
+        printf("%4d ", currentLine);
+    }
 
     uint8_t instruction = chunk->code[offset];
     switch (instruction)     {

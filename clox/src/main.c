@@ -11,8 +11,8 @@ int main(int argc, char** argv) {
 	writeChunk(&chunk, constant, 1);
 	writeChunk(&chunk, OP_CONSTANT, 10);
 	writeChunk(&chunk, constant, 10);
-	writeChunk(&chunk, OP_CONSTANT, 11);
-	writeChunk(&chunk, constant, 11);
+	writeChunk(&chunk, OP_CONSTANT, 10);
+	writeChunk(&chunk, constant, 10);
 
 	writeChunk(&chunk, OP_RETURN, 123);
 
