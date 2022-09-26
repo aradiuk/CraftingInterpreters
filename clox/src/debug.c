@@ -3,22 +3,23 @@
 #include "debug.h"
 #include "value.h"
 
-static int constantInstruction(const char* name, Chunk* chunk, int offset) {
-    uint8_t constant = chunk->code[offset + 1];
+static void printConstantInstruction(const char* name, Chunk* chunk, uint32_t constant) {
     printf("%-16s %4d '", name, constant);
     printValue(chunk->constants.values[constant]);
     printf("'\n");
+}
+
+static int constantInstruction(const char* name, Chunk* chunk, int offset) {
+    uint8_t constant = chunk->code[offset + 1];
+    printConstantInstruction(name, chunk, constant);
     return offset + 2;
 }
 
 static int longConstantInstruction(const char* name, Chunk* chunk, int offset) {
-    int constant_1 = chunk->code[offset + 1];
-    int constant_2 = chunk->code[offset + 2] << 8;
-    int constant_3 = chunk->code[offset + 3] << 16;
-    int constant = constant_1 | constant_2 | constant_3;
-    printf("%-16s %4d '", name, constant);
-    printValue(chunk->constants.values[constant]);
-    printf("'\n");
+    uint32_t constant = chunk->code[offset + 1] |
+                        (chunk->code[offset + 2] << 8) |
+                        (chunk->code[offset + 3] << 16);
+    printConstantInstruction(name, chunk, constant);
     return offset + 4;
 }
 
